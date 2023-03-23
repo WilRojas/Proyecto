@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main class="container">
+    <div class="row">
+        <div class="mt-5">
+
+            <h1 class="text-center display-3 mb-3">Usuarios</h1>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-2">
+                <a href="{% url 'signup' %}" class="nav-link">
+
+                    <button class="btn btn-primary me-md-2">Agregar</button>
+
+
+                </a>
+            </div>
+
+            <table class="table table-bordered align-middle">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col">#</th>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Nombres</th>
+                        <th scope="col">Apellidos</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Activo</th>
+                        <th scope="col">Fecha Creación</th>
+                        <th scope="col">Último Acceso</th>
+                        <th scope="col">Modificar</th>
+                        <th scope="col">Eliminar</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for usuario in usuario %}
+
+                    <tr class="text-center">
+                        <th scope="row">{{usuario.id}}</th>
+                        <td>{{usuario.username}}</td>
+                        <td>{{usuario.first_name}}</td>
+                        <td>{{usuario.last_name}}</td>
+                        <td>{{usuario.email}}</td>
+                        <td>
+                            {% if usuario.is_active %}
+                            <img src="https://cdn-icons-png.flaticon.com/512/4225/4225683.png" width="20px"
+                                height="20px">
+                            {% else %}
+                            <img src="https://cdn-icons-png.flaticon.com/512/463/463612.png" width="20px" height="20px">
+                            {% endif %}
+                        </td>
+                        <td>{{usuario.date_joined}}</td>
+                        <td>{{usuario.last_login}}</td>
+                        <td>
+                            <!-- modificar -->
+                            <a class="list-group-item" href="{% url 'modificar_usuario' usuario.id %}">
+                                {% csrf_token %}
+                                <button class="btn"><img src="https://cdn-icons-png.flaticon.com/512/84/84380.png"
+                                        width="20px" height="20px">
+                            </a>
+                        </td>
+                        <td>
+                            <!-- eliminar -->
+                            {% if usuario.username == 'admin' %}
+                                <button class="btn"><img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png"
+                                    width="25px" height="25px">
+                            {% else %}
+                                <a class="list-group-item" href="{% url 'eliminar_usuario' usuario.id %}">
+
+                                    <button class="btn"><img
+                                            src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" width="25px"
+                                            height="25px">
+
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+</main>
+
+{% endblock %}

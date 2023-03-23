@@ -21,29 +21,54 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a href="/" class="nav-link">Home</a>
+                        <a href="/" class="nav-link">Inicio</a>
                     </li>
 
                     {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a href="{% url 'tasks' %}" class="nav-link">Tasks Pending</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'tasks_completed' %}" class="nav-link">Tasks Complete</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'create_task' %}" class="nav-link">Create Tasks</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'logout' %}" class="nav-link">Logout</a>
-                    </li>
+                        {% for groups in request.user.groups.values_list %}
+                            {% for group in groups %}
+                                {% if group == 'Administrador' %}
+                                    <li class="nav-item">
+                                        <a href="{% url 'usuarios' %}" class="nav-link">Usuarios</a>
+                                    </li>
+                                {%endif%}
+                                {% if group == 'Cliente' %}
+                                    <li class="nav-item">
+                                        <a href="{% url 'prueba' %}" class="nav-link">Cambiar Fichas</a>
+                                    </li>
+                                {%endif%}
+                                {% if group == 'Empleado' %}
+                                    <li class="nav-item">
+                                        <a href="{% url 'prueba' %}" class="nav-link">Gestionar Cambio Fichas</a>
+                                    </li>
+                                {%endif%}
+                            {% endfor %}
+                        {% endfor %}
+
+                        <!-- {% if user.username == 'admin' %}
+                            <li class="nav-item">
+                                <a href="{% url 'usuarios' %}" class="nav-link">Usuarios</a>
+                            </li>
+                        {% endif %} -->
+
+
+                        <!-- <li class="nav-item">
+                                <a href="{% url 'tasks' %}" class="nav-link">Tasks Pending</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'tasks_completed' %}" class="nav-link">Tasks Complete</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'create_task' %}" class="nav-link">Create Tasks</a>
+                            </li> -->
+                        <li class="nav-item">
+                            <a href="{% url 'logout' %}" class="nav-link">Cerrar Sesión</a>
+                        </li>
+
                     {% else %}
-                    <li class="nav-item">
-                        <a href="{% url 'signup' %}" class="nav-link">Signup</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'signin' %}" class="nav-link">Signin</a>
-                    </li>
+                        <li class="nav-item">
+                            <a href="{% url 'signin' %}" class="nav-link">Iniciar Sesión</a>
+                        </li>
                     {% endif %}
                 </ul>
             </div>
