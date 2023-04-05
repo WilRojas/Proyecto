@@ -20,9 +20,7 @@
             <form action="{% url 'usuarios' %}" method="POST">
 
                 {% csrf_token %}
-                <button class="btn btn-dark">
-                    Update
-                </button>
+                <button class="btn btn-primary" type="submit"><a href="{% url 'usuarios' %}">Actualizar</a></button>
 
             </form>
 

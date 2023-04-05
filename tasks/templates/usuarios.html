@@ -9,7 +9,7 @@
             <h1 class="text-center display-3 mb-3">Usuarios</h1>
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-2">
-                <a href="{% url 'signup' %}" class="nav-link">
+                <a href="{% url 'crear_usuario' %}" class="nav-link">
 
                     <button class="btn btn-primary me-md-2">Agregar</button>
 
@@ -25,6 +25,7 @@
                         <th scope="col">Nombres</th>
                         <th scope="col">Apellidos</th>
                         <th scope="col">Email</th>
+                        <th scope="col">Tipo Usuario</th>
                         <th scope="col">Activo</th>
                         <th scope="col">Fecha Creación</th>
                         <th scope="col">Último Acceso</th>
@@ -35,16 +36,17 @@
 
                 <tbody>
 
-                    {% for usuario in usuario %}
+                    {% for usuario in object_list %}
 
                     <tr class="text-center">
                         <th scope="row">{{usuario.id}}</th>
                         <td>{{usuario.username}}</td>
-                        <td>{{usuario.first_name}}</td>
-                        <td>{{usuario.last_name}}</td>
+                        <td>{{usuario.nombres}}</td>
+                        <td>{{usuario.apellidos}}</td>
                         <td>{{usuario.email}}</td>
+                        <td>{{usuario.tipo_usuario}}</td>
                         <td>
-                            {% if usuario.is_active %}
+                            {% if usuario.usuario_activo %}
                             <img src="https://cdn-icons-png.flaticon.com/512/4225/4225683.png" width="20px"
                                 height="20px">
                             {% else %}

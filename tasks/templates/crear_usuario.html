@@ -13,12 +13,13 @@
                 {{error}}
 
                 {% csrf_token %}
-                {{form}}
-
-                <button class="btn btn-dark">
-                    Save
-                </button>
-
+                {{form.as_p}}
+                <div>
+                    <!-- <button class="btn btn-danger"></button> -->
+                    <a href="{% url 'usuarios' %}" class="btn btn-danger">Cancelar</a>
+                    <!-- <button class="btn btn-primary" type="submit"><a href="{% url 'usuarios' %}">Registrar</a></button> -->
+                    <button class="btn btn-primary" type="submit">Registrar</button>
+                </div>
             </form>
         </div>
     </div>

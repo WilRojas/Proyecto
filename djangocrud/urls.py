@@ -16,20 +16,24 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from tasks import views
+from django.contrib.auth.decorators import login_required
+# from tasks.views import ListadoUsuarios,RegistrarUsuario
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('signup/', views.signup, name='signup'),
-    path('tasks/', views.tasks, name='tasks'),
-    path('tasks_completed/', views.tasks_completed, name='tasks_completed'),
-    path('tasks/create/', views.create_task, name='create_task'),
-    path('tasks/<int:task_id>/', views.task_detail, name='task_detail'),
-    path('tasks/<int:task_id>/complete', views.complete_task, name='complete_task'),
-    path('tasks/<int:task_id>/delete', views.delete_task, name='delete_task'),
+    # path('tasks/', views.tasks, name='tasks'),
+    # path('tasks_completed/', views.tasks_completed, name='tasks_completed'),
+    # path('tasks/create/', views.create_task, name='create_task'),
+    # path('tasks/<int:task_id>/', views.task_detail, name='task_detail'),
+    # path('tasks/<int:task_id>/complete', views.complete_task, name='complete_task'),
+    # path('tasks/<int:task_id>/delete', views.delete_task, name='delete_task'),
     path('logout/', views.signout, name='logout'),
     path('signin/', views.signin, name='signin'),
-    path('usuarios/', views.usuarios, name='usuarios'),
+    # path('usuarios/', views.clase_usuario.usuarios, name='usuarios'),
+    path('usuarios/', login_required(views.ListadoUsuarios.as_view()), name='usuarios'),
+    path('usuarios/crear/', login_required(views.RegistrarUsuario.as_view()), name='crear_usuario'),
     path('usuarios/<int:id>/', views.modificar_usuario, name='modificar_usuario'),
     path('usuarios/<int:id>/eliminar/', views.eliminar_usuario, name='eliminar_usuario'),
     path('prueba/', views.prueba, name='prueba'),
